@@ -1,9 +1,46 @@
 
 import { LockClosedIcon } from '@heroicons/react/solid'
 import { Link} from 'react-router-dom'
+import axios from 'axios'
+import { useState } from 'react'
+import config from '../config.js'
+
 
 
 const Login = () => {
+  
+    const [ loading, setLoading ] = useState(false);
+    const [ btnText, setBtnText ] = useState('Login')
+
+    const submitForm = (evt) => {
+        evt.preventDefault();
+
+        setBtnText('Loading...')
+
+        const form = new FormData(evt.target)
+        const data = {
+            email: form.get('email'),
+            password: form.get('password')
+        }
+        
+        setLoading(true)
+        axios.post(config.APP_URL + '/auth/login', data).then( res => {
+            console.log(res)
+            setLoading(false)
+                setBtnText('Login')
+                alert('Login successful!')
+                window.location.href = '/fuelcredit-web/dashboard'
+
+        }).catch( (e, f) => {
+            if(e.response && e.response.status === 422) {
+                alert(e.response.data.message)
+            }
+            console.log({...e})
+                setBtnText('Login')
+            setLoading(false);
+        })
+    }
+
   return (
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -22,7 +59,7 @@ const Login = () => {
               </Link>
             </p>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form onSubmit={submitForm} className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -78,12 +115,13 @@ const Login = () => {
             <div>
               <button
                 type="submit"
+                disabled={ loading ? true : false }
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                   <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
-                Sign in
+                {btnText}
               </button>
             </div>
           </form>

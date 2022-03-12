@@ -9,6 +9,7 @@ import Login from './auth/login';
 import NotFound from './pages/notFound.js'
 import Home from './pages/home.js'
 import Register from "./auth/register";
+import Dashboard from "./pages/dashboard"
 
 
 const AppRoutes = () => {
@@ -19,6 +20,7 @@ const AppRoutes = () => {
             <Route exact path="/fuelcredit-web" element={ <Home /> } />
             <Route path="/fuelcredit-web/login" element={ <Login/> } />
             <Route path="/fuelcredit-web/sign-up" element={ <Register/> } />
+            <Route path="/fuelcredit-web/dashboard" element={<Dashboard />} />
             <Route path="*" element={ <NotFound /> } />
           </Routes>
       </BrowserRouter>

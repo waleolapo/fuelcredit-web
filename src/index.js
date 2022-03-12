@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import 'dotenv/config'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import AppRoutes from './appRoutes.js'
+
 
 ReactDOM.render(
   <React.StrictMode>
