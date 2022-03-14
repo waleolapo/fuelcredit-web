@@ -1,6 +1,6 @@
 
 import { LockClosedIcon } from '@heroicons/react/solid'
-import { Link} from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { useState } from 'react'
 import config from '../config.js'
@@ -11,6 +11,8 @@ const Login = () => {
   
     const [ loading, setLoading ] = useState(false);
     const [ btnText, setBtnText ] = useState('Login')
+    const [ redirect, setRedirect ] = useState(false)
+
 
     const submitForm = (evt) => {
         evt.preventDefault();
@@ -29,7 +31,8 @@ const Login = () => {
             setLoading(false)
                 setBtnText('Login')
                 alert('Login successful!')
-                window.location.href = '/fuelcredit-web/dashboard'
+                // window.location.href = '/fuelcredit-web/dashboard'
+                setRedirect(true)
 
         }).catch( (e, f) => {
             if(e.response && e.response.status === 422) {
@@ -41,7 +44,7 @@ const Login = () => {
         })
     }
 
-  return (
+  return ( redirect ? <Navigate to='/fuelcredit-web/app' /> :
     <>
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">

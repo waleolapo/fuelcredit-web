@@ -20,7 +20,7 @@ const AppRoutes = () => {
             <Route exact path="/fuelcredit-web" element={ <Home /> } />
             <Route path="/fuelcredit-web/login" element={ <Login/> } />
             <Route path="/fuelcredit-web/sign-up" element={ <Register/> } />
-            <Route path="/fuelcredit-web/dashboard" element={<Dashboard />} />
+            <Route path="/fuelcredit-web/app" element={<Dashboard />} />
             <Route path="*" element={ <NotFound /> } />
           </Routes>
       </BrowserRouter>
